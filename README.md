@@ -16,3 +16,11 @@ Grafana Loki.
 
 ## How to Run
 See individual sections below for each component.
+
+## Docker Instructions
+
+Build the image:
+docker build -t devops-intern-final .
+
+Run the container:
+docker run devops-intern-final
