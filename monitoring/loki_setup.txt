@@ -1,0 +1,30 @@
+Grafana Loki Setup — Monitoring Documentation
+
+How I started Loki:
+docker run -d --name loki -p 3100:3100 grafana/loki:latest
+
+How I confirmed Loki was ready:
+curl http://localhost:3100/ready
+
+How I sent a log entry to Loki:
+curl -H "Content-Type: application/json" -XPOST -s \
+  "http://localhost:3100/loki/api/v1/push" \
+  --data-raw '{"streams": [{"stream": {"job": "devops-intern-final"}, 
+  "values": [["<timestamp>", "Hello, DevOps! Log entry from Riliwan's project"]]}]}'
+
+The command I used to view logs:
+curl -sG "http://localhost:3100/loki/api/v1/query_range" \
+  --data-urlencode 'query={job="devops-intern-final"}'
+
+Result:
+Successfully retrieved the log entry back from Loki, 
+confirming logs were ingested and queryable:
+"Hello, DevOps! Log entry from Riliwan's project"
+
+Notes:
+Loki is a log aggregation system used alongside Grafana 
+for centralized log collection and querying. In a full 
+production setup, container logs (e.g. from Nomad jobs) 
+would be forwarded automatically to Loki using a log 
+shipping agent like Promtail, and viewed visually through 
+a Grafana dashboard connected to this Loki instance.
