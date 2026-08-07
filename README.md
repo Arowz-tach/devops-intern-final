@@ -1,5 +1,7 @@
 # DevOps Intern Final Assessment
 
+![CI](https://github.com/Arowz-tach/devops-intern-final/actions/workflows/ci.yml/badge.svg)
+
 **Name:** Riliwan Arowolo
 **Date:** July 2026
 **Description:** A complete DevOps workflow demonstrating 
