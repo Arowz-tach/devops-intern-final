@@ -26,3 +26,29 @@ docker build -t devops-intern-final .
 
 Run the container:
 docker run devops-intern-final
+
+## Nomad Job Deployment
+
+Nomad is used to schedule and run the Docker container 
+as a job.
+
+Start the Nomad agent in dev mode (separate terminal):
+nomad agent -dev
+
+Run the job:
+nomad job run nomad/hello.nomad
+
+Check status:
+nomad job status hello
+
+View logs:
+nomad alloc logs <allocation-id>
+
+### Note
+The job is defined as type "service" which expects a 
+long-running process. Since hello.py prints once and 
+exits, Nomad repeatedly restarts the allocation, showing 
+"failed" status even though the container runs and prints 
+"Hello, DevOps!" successfully each time — confirmed via 
+nomad alloc logs. In production this would instead be 
+defined as type "batch" for one-off tasks.
